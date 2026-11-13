@@ -157,7 +157,7 @@ function applyStatus(id,status){
   var r=row(raw);if(r.status===status)return;
   queue(raw,'status',status);
 }
-function render(opts){opts=opts||{};var R=rows();kpis(R);var F=filt(R);$('pc').textContent=Object.keys(L).length;
+function render(opts){opts=opts||{};var R=rows();kpis(R);var F=filt(R);var pc=$('pc');if(pc)pc.textContent=Object.keys(L).length;
 if(view==='board'){$('view').innerHTML='<div class="board">'+ST.map(function(s){var all=R.filter(function(r){return r.status===s});var c=F.filter(function(r){return r.status===s}).sort(function(a,b){return sv(a,'deadline')<sv(b,'deadline')?-1:1});
 var isC=!!collapsed[s];
 return '<div class="col'+(isC?' collapsed':'')+(isC?'':'')+'" data-s="'+s+'"><h3>'+pill(s)+'<span style="display:flex;gap:6px;align-items:center"><span style="color:#667085">'+all.length+'</span><button type="button" class="col-toggle" data-toggle="'+s+'">'+(isC?'Expand':'Collapse')+'</button></span></h3><div class="col-body">'+(c.length?c.map(card).join(''):'<div class="empty">Nothing here</div>')+'</div>'+(isC&&!VO?'<div class="drop-hint">Collapsed · drop a card here to set '+esc(s)+'</div>':'')+'</div>'}).join('')+'</div>';
